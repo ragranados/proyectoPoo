@@ -8,11 +8,14 @@ import java.awt.event.ActionListener;
 
 public class Autopista extends JFrame implements Runnable {
 
-    private int lineasSeparadoras=0;
+
+    ModeloAutos modelo = new ModeloAutos();
+   // public static Autopista autopista=new Autopista();
+    public  Thread hilo = new Thread(this);
     public Autopista(){
         super("Autopista");
         initialComponents();
-
+        hilo.start();
     }
 
     public void initialComponents(){
@@ -20,7 +23,6 @@ public class Autopista extends JFrame implements Runnable {
         setLayout(null);//Desde código,decimos DONDE  va cada botón, en qué posición va y qué tamaño ocupa en la ventana
         setResizable(true);// Sirve para habilitar o no, que se modifique el tamanio de la ventana
         Container contains ;
-
         setSize(500, 500);
 
     }
@@ -42,7 +44,7 @@ public class Autopista extends JFrame implements Runnable {
         g.setColor(Color.GREEN);
         g.fillRect(getX(0),getY(0),getX(20),getY(100));
         g.fillRect(getX(80),getY(0),getX(20),getY(100));
-        g.setColor(Color.GRAY);
+        g.setColor(Color.BLACK);
         g.fillRect(getX(20),getY(0),getX(60),getY(100));
         g.setColor(Color.WHITE);
         g.fillRect(getX(20),getY(0),getX(1),getY(100));
@@ -50,7 +52,7 @@ public class Autopista extends JFrame implements Runnable {
     }
 
     public void lineasSeparadoras(Graphics g){
-        int iD=lineasSeparadoras;
+        int iD=modelo.getLineaSeparadora();
         g.setColor(Color.WHITE);
 
         for (int n=iD;n<100;n+=40){
@@ -70,17 +72,34 @@ public class Autopista extends JFrame implements Runnable {
         //super.paint(g);
         pintarFondo(g);
         lineasSeparadoras(g);
+        pintarCoche(g,40,40,0xFF0000);
+        Carros coches[]=modelo.getCarros();
+        for(int i =0 ; i<coches.length ;i++){
+            if(coches[i].getVisible()){
+                pintarCoche(g,coches[i].getX(),coches[i].getY(),coches[i].getColor());
+            }
+        }
+
     }
 
+    private void pintarCoche(Graphics g,int x,int y,int nColorBase){
+        g.setColor(Color.getColor(Integer.toString(nColorBase)));
+        g.fillRoundRect(getX(x),getY(y),getX(10),getY(20),20,10);
+        g.setColor(Color.BLACK);
+        g.drawRoundRect(getX(x),getY(y),getX(10),getY(20),20,10);
+        g.drawRect(getX(x),getY(y+5),getX(10),getY(13));
+        g.drawRect(getX(x),getY(y+8),getX(10),getY(10));
+        g.setColor(Color.orange);
+        g.fillRect(getX(x+1),getY(y+6),getX(8),getY(1));
+        g.fillRect(getX(x),getY(y+18),getX(8),getY(1));
+    }
 
-
+    @Override
     public void run (){
         while (true){
             try{
                 retardo();
-                lineasSeparadoras+=4;
-                if(lineasSeparadoras>0)
-                    lineasSeparadoras-=40;
+                modelo.Mover();
                 repaint();
             }catch (Exception e){
                 e.printStackTrace();
