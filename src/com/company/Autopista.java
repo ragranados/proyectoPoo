@@ -9,8 +9,11 @@ import java.awt.event.ActionListener;
 public class Autopista extends JFrame implements Runnable {
 
     private int lineasSeparadoras=0;
+   // public static Autopista autopista=new Autopista();
+    public  Thread hilo = new Thread(this);
     public Autopista(){
         super("Autopista");
+        hilo.start();
         initialComponents();
 
     }
@@ -73,7 +76,7 @@ public class Autopista extends JFrame implements Runnable {
     }
 
 
-
+    @Override
     public void run (){
         while (true){
             try{
