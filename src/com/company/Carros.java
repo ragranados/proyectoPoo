@@ -12,7 +12,7 @@ public class Carros {
 
 
     public Carros (boolean obstaculo, Random r){
-        this.bObstaculo=obstaculo;
+        bObstaculo=obstaculo;
         this.r=r;
     }
 
@@ -81,6 +81,14 @@ public class Carros {
                 y=70;
             }
         }
+    }
+
+    public boolean hayChoque(int x2, int y2){
+        if (x+1>x2+9) return false;
+        if (x2+1>x+9) return false;
+        if (y+1>y2+19) return false;
+        if (y2+1>y+19) return false;
+        return true;
     }
 
 }

@@ -13,6 +13,18 @@ public class ModeloAutos {
     private boolean Jugando;
     private Carros coches []= new Carros[5];
 
+    //REPRESENTACIONES EN STRING DE e.getKeyCode()
+
+    public static final byte RIGHT=0;
+    public static final byte LEFT=1;
+    public static final byte DOWN=2;
+    public static final byte UP=3;
+    public static final byte ENTER=4;
+
+    private boolean teclas[]=new boolean[4];
+
+    private  int nPuntos=0;
+
     public ModeloAutos(){
         crearCarros();
         empezarPartida();
@@ -32,12 +44,16 @@ public class ModeloAutos {
      * Metodo encargado del movimiento de las lineas separadoras
      */
     public void Mover(){
-        if(Jugando){
-            for (int i=1;i<coches.length;i++){
-                coches[i].moverComputador();
-            }
+        if (Jugando){
+            if (teclas[RIGHT]) coches[0].mover(2,0);
+            if (teclas[LEFT]) coches[0].mover(-2,0);
+            if (teclas[DOWN]) coches[0].mover(0,2);
+            if (teclas[UP]) coches[0].mover(0,-2);
+            for (int n=1;n<coches.length;n++)
+                coches[n].moverComputador();
             avanzarLineaSeparadora();
             mostrarNuevoCarro();
+            detectarChoque();
         }
     }
 
@@ -68,6 +84,10 @@ public class ModeloAutos {
         }
     }
 
+    public void eventoTecla(int nTecla, boolean bEstado){
+        teclas[nTecla]=bEstado;
+    }
+
     public Carros [] getCarros(){
         return coches;
     }
@@ -78,9 +98,22 @@ public class ModeloAutos {
         for(int i =1;i<coches.length;i++){
             coches[i].ocultarCarro();
             Jugando=true;
+            nPuntos=0;
             System.gc();
         }
 
+    }
+
+    private void detectarChoque(){
+        int x=coches[0].getX();
+        int y=coches[0].getY();
+        for (int n=1;n<coches.length;n++)
+            if (coches[n].getVisible() && coches[n].hayChoque(x,y))
+                Jugando=false;
+    }
+
+    public int getPuntos(){
+        return nPuntos;
     }
 
 }
