@@ -12,7 +12,7 @@ public class Carros {
 
 
     public Carros (boolean obstaculo, Random r){
-        bObstaculo=obstaculo;
+        this.bObstaculo=obstaculo;
         this.r=r;
     }
 

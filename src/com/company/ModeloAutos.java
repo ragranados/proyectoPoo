@@ -1,4 +1,6 @@
 package com.company;
+
+
 import java.util.Random;
 
 /**
@@ -11,15 +13,9 @@ public class ModeloAutos {
     private int mostrarCoche=0;
     private int nCoche=1;
     private boolean Jugando;
-    private Carros coches []= new Carros[5];
+    private Carros  coches []= new Carros[5];
 
     //REPRESENTACIONES EN STRING DE e.getKeyCode()
-
-    public static final byte RIGHT=0;
-    public static final byte LEFT=1;
-    public static final byte DOWN=2;
-    public static final byte UP=3;
-    public static final byte ENTER=4;
 
     private boolean teclas[]=new boolean[4];
 
@@ -45,10 +41,18 @@ public class ModeloAutos {
      */
     public void Mover(){
         if (Jugando){
-            if (teclas[RIGHT]) coches[0].mover(2,0);
-            if (teclas[LEFT]) coches[0].mover(-2,0);
-            if (teclas[DOWN]) coches[0].mover(0,2);
-            if (teclas[UP]) coches[0].mover(0,-2);
+            if (teclas[0]) {
+                coches[0].mover(2,0);
+            }
+            if (teclas[1]) {
+                coches[0].mover(-2,0);
+            }
+            if (teclas[2]) {
+                coches[0].mover(0, 2);
+            }
+            if (teclas[3]){
+                coches[0].mover(0,-2   );
+            }
             for (int n=1;n<coches.length;n++)
                 coches[n].moverComputador();
             avanzarLineaSeparadora();
@@ -70,6 +74,7 @@ public class ModeloAutos {
             if(nCoche==coches.length){
                 nCoche=1;
             }
+            nPuntos++;
         }
     }
 
@@ -85,6 +90,7 @@ public class ModeloAutos {
     }
 
     public void eventoTecla(int nTecla, boolean bEstado){
+
         teclas[nTecla]=bEstado;
     }
 
@@ -93,13 +99,14 @@ public class ModeloAutos {
     }
 
     public void empezarPartida(){
-        coches[0].mostrarCarro(0xFF0000);
+
+        coches[0].mostrarCarro( 0xff);
         coches[0].setXY(45,70);
         for(int i =1;i<coches.length;i++){
-            coches[i].ocultarCarro();
+            coches[i].mostrarCarro(0xFF0000);
             Jugando=true;
+            Mover();
             nPuntos=0;
-            System.gc();
         }
 
     }
