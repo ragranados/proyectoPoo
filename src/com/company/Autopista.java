@@ -1,9 +1,11 @@
 package com.company;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.Timer;
 
 public class Autopista extends JFrame implements Runnable {
 
@@ -14,7 +16,7 @@ public class Autopista extends JFrame implements Runnable {
     public static final int ENTER=4;
 
     private int lineasSeparadoras=0;
-    ModeloAutos modeloAutos=new ModeloAutos();
+    private ModeloAutos modeloAutos=new ModeloAutos();
     private int  codTecla;
     public  Thread hilo = new Thread(this);
 
@@ -33,10 +35,11 @@ public class Autopista extends JFrame implements Runnable {
     public Autopista(){
         super("Autopista");
         hilo.start();
-        EventoTeclado teclado = new EventoTeclado();
+        //EventoTeclado teclado = new EventoTeclado();
+        setVisible(true);
 
         initialComponents();
-        addKeyListener(teclado);
+        //addKeyListener(teclado);
 
     }
 
@@ -89,16 +92,18 @@ public class Autopista extends JFrame implements Runnable {
      *
      */
 
-    public void paint (Graphics g){
+    public void paint(Graphics g) {
         //super.paint(g);
         pintarFondo(g);
         lineasSeparadoras(g);
-        Carros coches[]=modeloAutos.getCarros();
-        for (int n=0;n<coches.length;n++)
-           if (coches[n].getVisible())
-                pintarCoche(g,coches[n].getX(),
+        Carros coches[] = modeloAutos.getCarros();
+        for (int n = 0; n < coches.length; n++) {
+            if (coches[n].getVisible()) {
+                pintarCoche(g, coches[n].getX(),
                         coches[n].getY(),
                         coches[n].getColor());
+            }
+        }
         pintarPuntos(g);
     }
 
@@ -114,7 +119,7 @@ public class Autopista extends JFrame implements Runnable {
         g.fillRect(getX(x+1), getY(y+18), getX(8), getY(1));
     }
 
-    private void eventoTecla(int tecla, boolean estado){
+    /*private void eventoTecla(int tecla, boolean estado){
 
         switch(tecla){
             case 0:
@@ -130,7 +135,7 @@ public class Autopista extends JFrame implements Runnable {
                 modeloAutos.eventoTecla(Autopista.UP,estado);
                 break;
         }
-    }
+    }*/
 
     private void pintarPuntos(Graphics g){
         g.setColor(Color.BLACK);
@@ -158,12 +163,18 @@ public class Autopista extends JFrame implements Runnable {
         }
     }
 
+    public ModeloAutos getModeloAutos() {
+        return modeloAutos;
+    }
+    
+    
+
 
 
     /**
      * CLASE QUE SIRVE PARA OBTENER LOS CODIGOS NUMERICOS DE LAS TECLAS PRESIONADAS
      */
-    class EventoTeclado implements KeyListener {
+    /*class EventoTeclado implements KeyListener {
         @Override
         public void keyTyped(KeyEvent e) {}
 
@@ -212,14 +223,19 @@ public class Autopista extends JFrame implements Runnable {
                     break;
             }
         }
-    }
+    }*/
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Autopista().setVisible(true);
+                Autopista au = new Autopista();
+                ActionListener listener = new TimeListener(au.getModeloAutos());
+                au.addKeyListener((KeyListener) listener );
+                Timer timer = new Timer(25,listener);
+                timer.start();
+                
             }
         });
     }
-
+    
 }

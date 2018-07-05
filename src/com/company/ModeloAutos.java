@@ -39,24 +39,21 @@ public class ModeloAutos {
     /**
      * Metodo encargado del movimiento de las lineas separadoras
      */
-    public void Mover(){
-        if (Jugando){
-            if (teclas[0]) {
-                coches[0].mover(2,0);
-            }
-            if (teclas[1]) {
-                coches[0].mover(-2,0);
-            }
-            if (teclas[2]) {
-                coches[0].mover(0, 2);
-            }
-            if (teclas[3]){
-                coches[0].mover(0,-2   );
-            }
-            for (int n=1;n<coches.length;n++)
+    public void Mover() {
+        if (Jugando) {
+
+            for (int n = 1; n < coches.length; n++) {
                 coches[n].moverComputador();
+            }
             avanzarLineaSeparadora();
             mostrarNuevoCarro();
+            detectarChoque();
+        }
+    }
+    
+    public void moverCarroPropio(int a, int b) {
+        if (Jugando) {
+            coches[0].mover(a, b);
             detectarChoque();
         }
     }

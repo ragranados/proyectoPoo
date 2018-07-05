@@ -36,8 +36,7 @@ public class Carros {
         bVisible=true;
         nColor=color;
         y=-20;
-        x=r.nextInt(60)+20;
-        dx=r.nextInt(5)-2;
+        x=6+((r.nextInt(3)+1)*20);
     }
 
     public void ocultarCarro(){
@@ -90,5 +89,17 @@ public class Carros {
         if (y2+1>y+19) return false;
         return true;
     }
+    
+    /*public void moverAutoPropio(){
+        if(!bObstaculo){
+            //LIMITACION DE MOVIMIENTO DEL VEHICULO PROPIO
+            if(y<10){
+                y=10;
+            }
+            if(y>70){
+                y=70;
+            }
+        }
+    }*/
 
 }
