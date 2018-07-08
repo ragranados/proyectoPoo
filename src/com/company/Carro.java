@@ -1,7 +1,14 @@
 package com.company;
 
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -12,20 +19,25 @@ public class Carro {
     private int dx,dy;
     private boolean bObstaculo;
     private Random r;
-    private JLabel imagen = new JLabel() ;
+    private JLabel imagen = new JLabel();
+    private BufferedImage imagen1;
 
 
     public Carro (boolean obstaculo, Random r){
         if(!this.bObstaculo){
-            imagen.setIcon(new ImageIcon(getClass().getResource("carrocaro.png")));
-            imagen.setBounds(45,70,9,15);
+            try {
+                imagen1 = ImageIO.read(getClass().getResourceAsStream("carrocaro.png"));
+               
+            } catch (IOException ex) {
+                Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         this.bObstaculo=obstaculo;
         this.r=r;
     }
 
-    public JLabel getImagen() {
-        return imagen;
+    public Image getImagen() {
+        return imagen1;
     }
     
     
@@ -75,11 +87,13 @@ public class Carro {
 
     public void mover(int dx, float dy) {
         
-        
+        y += dy;
        
         if (!bObstaculo) {
+            
             y += dy;
             x += dx;
+            
             //LIMITACION DE MOVIMIENTO DEL VEHICULO PROPIO
             if (y < 10) {
                 y = 10;
@@ -136,5 +150,11 @@ public class Carro {
     public void setDy(int dy) {
         this.dy = dy;
     }
+
+    public void setbVisible(boolean bVisible) {
+        this.bVisible = bVisible;
+    }
+    
+    
 
 }

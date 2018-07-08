@@ -5,6 +5,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Autopista extends JFrame implements Runnable {
@@ -14,9 +18,10 @@ public class Autopista extends JFrame implements Runnable {
     public static final int DOWN=2;
     public static final int UP=3;
     public static final int ENTER=4;
-
+    
+    private Container container;
     private int lineasSeparadoras=0;
-    private ModeloAutos modeloAutos=new ModeloAutos();
+    private ModeloAutos modeloAutos = new ModeloAutos();;
     private int  codTecla;
     public  Thread hilo = new Thread(this);
 
@@ -34,6 +39,7 @@ public class Autopista extends JFrame implements Runnable {
 
     public Autopista(){
         super("Autopista");
+        
         hilo.start();
         //EventoTeclado teclado = new EventoTeclado();
         setVisible(true);
@@ -45,7 +51,7 @@ public class Autopista extends JFrame implements Runnable {
 
     public void initialComponents(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       // setLayout(null);//Desde código,decimos DONDE  va cada botón, en qué posición va y qué tamaño ocupa en la ventana
+        //setLayout(null);//Desde código,decimos DONDE  va cada botón, en qué posición va y qué tamaño ocupa en la ventana
         setResizable(true);// Sirve para habilitar o no, que se modifique el tamanio de la ventana
         setSize(500, 700);
 
@@ -93,18 +99,23 @@ public class Autopista extends JFrame implements Runnable {
      */
 
     public void paint(Graphics g) {
+        
         //super.paint(g);
         pintarFondo(g);
         lineasSeparadoras(g);
         Carro coches[] = modeloAutos.getCarros();
+        //g.drawImage(coches[0].getImagen(), getX(coches[0].getX()), getY(coches[0].getY()),getX(9),getY(15), null);
         for (int n = 0; n < coches.length; n++) {
+           
             if (coches[n].getVisible()) {
                 pintarCoche(g, coches[n].getX(),
                         coches[n].getY(),
                         coches[n].getColor());
             }
         }
+        g.drawImage(coches[0].getImagen(), getX(coches[0].getX()), getY(coches[0].getY()),getX(9),getY(15), null);
         pintarPuntos(g);
+        
     }
     
     
@@ -142,7 +153,7 @@ public class Autopista extends JFrame implements Runnable {
 
     private void pintarPuntos(Graphics g){
         g.setColor(Color.BLACK);
-        g.drawString("Score:" + modeloAutos.getPuntos(), getX(8), getY(25));
+        g.drawString("Score: " + modeloAutos.getPuntos()+ " :v", getX(8), getY(25));
     }
 
     @Override

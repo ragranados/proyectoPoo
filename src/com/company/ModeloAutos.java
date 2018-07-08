@@ -1,6 +1,7 @@
 package com.company;
 
 
+import java.awt.Graphics;
 import java.util.Random;
 
 /**
@@ -13,7 +14,7 @@ public class ModeloAutos {
     private int mostrarCoche=0;
     private int nCoche=1;
     private boolean Jugando;
-    private Carro  coches []= new Carro[5];
+    private Carro  coches []= new Carro[7];
 
     //REPRESENTACIONES EN STRING DE e.getKeyCode()
 
@@ -58,13 +59,14 @@ public class ModeloAutos {
     public void moverCarroPropio(int a, float b) {
         if (Jugando) {
             coches[0].mover(a, b);
+            
             detectarChoque();
         }
     }
 
     private void mostrarNuevoCarro(){
         mostrarCoche++;
-        if(mostrarCoche==25){
+        if(mostrarCoche==14){
             mostrarCoche=0;
             int red=r.nextInt(255);
             int green=r.nextInt(255);
