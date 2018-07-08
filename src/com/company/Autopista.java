@@ -47,7 +47,7 @@ public class Autopista extends JFrame implements Runnable {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        // setLayout(null);//Desde código,decimos DONDE  va cada botón, en qué posición va y qué tamaño ocupa en la ventana
         setResizable(true);// Sirve para habilitar o no, que se modifique el tamanio de la ventana
-        setSize(500, 500);
+        setSize(500, 700);
 
     }
 
@@ -96,7 +96,7 @@ public class Autopista extends JFrame implements Runnable {
         //super.paint(g);
         pintarFondo(g);
         lineasSeparadoras(g);
-        Carros coches[] = modeloAutos.getCarros();
+        Carro coches[] = modeloAutos.getCarros();
         for (int n = 0; n < coches.length; n++) {
             if (coches[n].getVisible()) {
                 pintarCoche(g, coches[n].getX(),
@@ -109,14 +109,14 @@ public class Autopista extends JFrame implements Runnable {
 
     private void pintarCoche(Graphics g, int x, int y, int nColorBase){
         g.setColor(Color.getColor(String.valueOf(nColorBase)));
-        g.fillRoundRect(getX(x), getY(y), getX(10), getY(20), 20, 10);
+        g.fillRoundRect(getX(x), getY(y), getX(8), getY(15), 15, 8);
         g.setColor(Color.black);
-        g.drawRoundRect(getX(x), getY(y), getX(10), getY(20), 20, 10);
-        g.drawRect(getX(x), getY(y+5), getX(10), getY(13));
-        g.drawRect(getX(x), getY(y+8), getX(10), getY(10));
+        g.drawRoundRect(getX(x), getY(y),getX(8), getY(15), 15, 8);
+        g.drawRect(getX(x), getY(y+2), getX(8), getY(10));
+        g.drawRect(getX(x), getY(y+5), getX(8), getY(7));
         g.setColor(Color.blue);
-        g.fillRect(getX(x+1), getY(y+6), getX(8), getY(1));
-        g.fillRect(getX(x+1), getY(y+18), getX(8), getY(1));
+        g.fillRect(getX(x+1), getY(y+4), getX(6), getY(1));
+        g.fillRect(getX(x+1), getY(y+10), getX(6), getY(1));
     }
 
     /*private void eventoTecla(int tecla, boolean estado){

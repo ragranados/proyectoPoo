@@ -17,7 +17,8 @@ import java.awt.event.KeyListener;
 public class TimeListener implements ActionListener, KeyListener{
     
     ModeloAutos mo;
-    int velx=0,vely=0;
+    int velx=0;
+    float vely=0;
     
     public TimeListener(ModeloAutos mo){
         this.mo = mo;
@@ -27,11 +28,15 @@ public class TimeListener implements ActionListener, KeyListener{
     public void actionPerformed(ActionEvent e) {
         
         mo.moverCarroPropio(velx,vely);
+        //mo.detectarChoque();
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        /*int code = e.getKeyCode();
+        if(code == KeyEvent.VK_E){
+            mo.empezarPartida();
+        }*/
     }
 
     @Override
@@ -50,6 +55,9 @@ public class TimeListener implements ActionListener, KeyListener{
             case KeyEvent.VK_RIGHT:
                 left();
                 break;
+            case KeyEvent.VK_E:
+                mo.empezarPartida();
+                break;
             default:
                 break;
         }
@@ -66,12 +74,12 @@ public class TimeListener implements ActionListener, KeyListener{
     }
     
     public void up() {
-        this.vely = -1;
+        this.vely = (float) -1;
     
     }
     
     public void down(){
-        this.vely = 1;
+        this.vely = (float) 1;
     }
     
     public void right(){

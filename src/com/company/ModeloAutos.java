@@ -13,7 +13,7 @@ public class ModeloAutos {
     private int mostrarCoche=0;
     private int nCoche=1;
     private boolean Jugando;
-    private Carros  coches []= new Carros[5];
+    private Carro  coches []= new Carro[5];
 
     //REPRESENTACIONES EN STRING DE e.getKeyCode()
 
@@ -44,14 +44,18 @@ public class ModeloAutos {
 
             for (int n = 1; n < coches.length; n++) {
                 coches[n].moverComputador();
+                if(coches[n].getY()==100){
+                    aumentarPuntaje();
+                }
             }
+            
             avanzarLineaSeparadora();
             mostrarNuevoCarro();
             detectarChoque();
         }
     }
     
-    public void moverCarroPropio(int a, int b) {
+    public void moverCarroPropio(int a, float b) {
         if (Jugando) {
             coches[0].mover(a, b);
             detectarChoque();
@@ -65,23 +69,29 @@ public class ModeloAutos {
             int red=r.nextInt(255);
             int green=r.nextInt(255);
             int blue=r.nextInt(255);
-            int nColor = red+green*0x100+blue*0x10000;
+            int nColor = red+(green*0x100)+(blue*0x10000);
+            System.out.println(nColor);
             coches[nCoche].mostrarCarro(nColor);
+            coches[nCoche].setDy(r.nextInt(2)+1);
             nCoche++;
             if(nCoche==coches.length){
                 nCoche=1;
             }
-            nPuntos++;
+            
         }
+    }
+    
+    public void aumentarPuntaje(){
+        nPuntos++;
     }
 
     private void crearCarros(){
         for(int i=0 ;i < coches.length;i++){
             if(i==0){
-                coches[i]= new Carros(false,r);
+                coches[i]= new Carro(false,r);
             }
             else{
-                coches[i]= new Carros(true,r);
+                coches[i]= new Carro(true,r);
             }
         }
     }
@@ -91,24 +101,26 @@ public class ModeloAutos {
         teclas[nTecla]=bEstado;
     }
 
-    public Carros [] getCarros(){
+    public Carro [] getCarros(){
         return coches;
     }
 
     public void empezarPartida(){
 
-        coches[0].mostrarCarro( 0xff);
+        coches[0].mostrarCarro(0xff0000);
         coches[0].setXY(45,70);
         for(int i =1;i<coches.length;i++){
-            coches[i].mostrarCarro(0xFF0000);
-            Jugando=true;
-            Mover();
-            nPuntos=0;
+            //coches[i].mostrarCarro(0xFF0000);
+            coches[i].ocultarCarro();
+            //Mover();
+            
         }
+        nPuntos=0;
+        Jugando=true;
 
     }
 
-    private void detectarChoque(){
+    public void detectarChoque(){
         int x=coches[0].getX();
         int y=coches[0].getY();
         for (int n=1;n<coches.length;n++)
