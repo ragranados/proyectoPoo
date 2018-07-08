@@ -109,11 +109,11 @@ public class Autopista extends JFrame implements Runnable {
 
     private void pintarCoche(Graphics g, int x, int y, int nColorBase){
         g.setColor(Color.getColor(String.valueOf(nColorBase)));
-        g.fillRoundRect(getX(x), getY(y), getX(8), getY(15), 15, 8);
+        g.fillRoundRect(getX(x), getY(y), getX(9), getY(15), 15, 8);
         g.setColor(Color.black);
-        g.drawRoundRect(getX(x), getY(y),getX(8), getY(15), 15, 8);
-        g.drawRect(getX(x), getY(y+2), getX(8), getY(10));
-        g.drawRect(getX(x), getY(y+5), getX(8), getY(7));
+        g.drawRoundRect(getX(x), getY(y),getX(9), getY(15), 15, 8);
+        g.drawRect(getX(x), getY(y+2), getX(9), getY(10));
+        g.drawRect(getX(x), getY(y+5), getX(9), getY(7));
         g.setColor(Color.blue);
         g.fillRect(getX(x+1), getY(y+4), getX(6), getY(1));
         g.fillRect(getX(x+1), getY(y+10), getX(6), getY(1));

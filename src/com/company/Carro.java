@@ -1,5 +1,6 @@
 package com.company;
 
+import java.awt.Image;
 import java.util.Random;
 
 public class Carro {
@@ -9,6 +10,7 @@ public class Carro {
     private int dx,dy;
     private boolean bObstaculo;
     private Random r;
+    private Image foto;
 
 
     public Carro (boolean obstaculo, Random r){
@@ -88,8 +90,8 @@ public class Carro {
     }
 
     public boolean hayChoque(int x2, int y2){
-        if (x+1>x2+9) return false;
-        if (x2+1>x+9) return false;
+        if (x+1>x2+10) return false;
+        if (x2+1>x+10) return false;
         if (y+1>y2+16) return false;
         if (y2+1>y+16) return false;
         return true;

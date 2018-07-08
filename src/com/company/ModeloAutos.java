@@ -64,7 +64,7 @@ public class ModeloAutos {
 
     private void mostrarNuevoCarro(){
         mostrarCoche++;
-        if(mostrarCoche==30){
+        if(mostrarCoche==25){
             mostrarCoche=0;
             int red=r.nextInt(255);
             int green=r.nextInt(255);
