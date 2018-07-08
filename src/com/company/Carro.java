@@ -2,6 +2,8 @@ package com.company;
 
 import java.awt.Image;
 import java.util.Random;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class Carro {
     private int x,y;
@@ -10,13 +12,23 @@ public class Carro {
     private int dx,dy;
     private boolean bObstaculo;
     private Random r;
-    private Image foto;
+    private JLabel imagen = new JLabel() ;
 
 
     public Carro (boolean obstaculo, Random r){
+        if(!this.bObstaculo){
+            imagen.setIcon(new ImageIcon(getClass().getResource("carrocaro.png")));
+            imagen.setBounds(45,70,9,15);
+        }
         this.bObstaculo=obstaculo;
         this.r=r;
     }
+
+    public JLabel getImagen() {
+        return imagen;
+    }
+    
+    
 
     public int getX() {
         return x;
@@ -62,6 +74,8 @@ public class Carro {
     }
 
     public void mover(int dx, float dy) {
+        
+        
        
         if (!bObstaculo) {
             y += dy;
@@ -72,6 +86,14 @@ public class Carro {
             }
             if (y > 70) {
                 y = 70;
+            }
+            
+            if (x < 20) {
+                x = 20;
+            }
+
+            if (x > 70) {
+                x = 70;
             }
         } else {
             x += dx;

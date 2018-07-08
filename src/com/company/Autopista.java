@@ -106,8 +106,11 @@ public class Autopista extends JFrame implements Runnable {
         }
         pintarPuntos(g);
     }
+    
+    
 
     private void pintarCoche(Graphics g, int x, int y, int nColorBase){
+        
         g.setColor(Color.getColor(String.valueOf(nColorBase)));
         g.fillRoundRect(getX(x), getY(y), getX(9), getY(15), 15, 8);
         g.setColor(Color.black);

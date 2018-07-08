@@ -89,6 +89,7 @@ public class ModeloAutos {
         for(int i=0 ;i < coches.length;i++){
             if(i==0){
                 coches[i]= new Carro(false,r);
+                
             }
             else{
                 coches[i]= new Carro(true,r);
